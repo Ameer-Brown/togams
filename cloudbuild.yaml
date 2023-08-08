@@ -17,7 +17,7 @@ artifacts:
       - '*.json'
       - '*.md'
 
-images:
-  - 'gcr.io/project-togams/togams:latest'
+# images:
+#   - 'gcr.io/project-togams/togams:latest'
 options:
   logging: CLOUD_LOGGING_ONLY
