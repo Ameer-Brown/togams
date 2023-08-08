@@ -5,7 +5,7 @@ artifacts:
   objects:
     location: 'gs://togams/'
     paths: ['*.js', '*.json']
-images:
-  - 'gcr.io/project-togams/calandar:latest'
+# images:
+#   - 'gcr.io/project-togams/calandar:latest'
 options:
   logging: CLOUD_LOGGING_ONLY 

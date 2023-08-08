@@ -6,7 +6,7 @@ artifacts:
     location: 'gs://togams/'
     paths: ['*.js', '*.json']
 
-images:
-  - 'gcr.io/project-togams/user-management:latest'
+# images:
+#   - 'gcr.io/project-togams/user-management:latest'
 options:
   logging: CLOUD_LOGGING_ONLY 
