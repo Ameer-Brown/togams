@@ -8,3 +8,5 @@ artifacts:
 
 images:
   - 'gcr.io/project-togams/user-management:latest'
+options:
+  logging: CLOUD_LOGGING_ONLY 
