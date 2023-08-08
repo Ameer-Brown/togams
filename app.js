@@ -28,6 +28,8 @@ app.use('/music-admin', require('./music-management-system/routes'));
 // artist-progress-dashboard
 app.use('/calandar', require('./artist-progress-dashboard/routes'));
 
+// artist-progress-dashboard
+app.use('/custom-dash', require('./customizable-dashboard/routes'));
 // 404 handler
 app.use((req, res) => {
   res.status(404);

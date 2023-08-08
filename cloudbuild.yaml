@@ -1,11 +1,21 @@
 steps:
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['install']
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['test']
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['build']
+  # Step 1: Install app dependencies
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+
 artifacts:
   objects:
     location: 'gs://togams/'
-    paths: ['dist/*']
+    paths:
+      - 'unified-comm-portal/*'
+      - 'artist-progress-dashboard/*'
+      - 'customizable-dashboard/*'
+      - 'music-management-system/*'
+      - 'stakeholder-management-system/*'
+      - 'tour-management-suite/*'
+      - '*.js'
+      - '*.json'
+      - '*.md'
+
+images:
+  - 'gcr.io/project-togams/togams:latest'

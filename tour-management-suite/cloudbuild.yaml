@@ -1,11 +1,9 @@
 steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: ['install']
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['test']
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['build']
 artifacts:
   objects:
     location: 'gs://togams/'
-    paths: ['dist/*']
+    paths: ['*.js', '*.json']
+images:
+  - 'gcr.io/project-togams/tours:latest'
