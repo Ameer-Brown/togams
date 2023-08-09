@@ -10,7 +10,7 @@ app.use((req, res, next) => {
 
 // most important and true middleware: home route
 app.get('/', (req, res) => {
-  res.send('TOGAMS = The Ogunlesi Group Artist Mgmt System');
+  res.send(' 💿 💿 TOGAMS = The Ogunlesi Group Artist Mgmt System');
 });
 
 // tour-management-suite
