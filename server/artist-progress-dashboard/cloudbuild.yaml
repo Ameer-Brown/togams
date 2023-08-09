@@ -1,0 +1,11 @@
+steps:
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+artifacts:
+  objects:
+    location: 'gs://togams/'
+    paths: ['*.js', '*.json']
+# images:
+#   - 'gcr.io/project-togams/calandar:latest'
+options:
+  logging: CLOUD_LOGGING_ONLY 
