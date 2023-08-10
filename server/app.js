@@ -5,6 +5,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 3000;
 
+
 // MongoDB connection setup
 const uri = process.env.MONGO_URI || "mongodb+srv://togams:DxuO5iU922S7Z61j@cluster0.pi0qsca.mongodb.net/?retryWrites=true&w=majority"; // Remember to setup MONGO_URI in your environment variables
 
@@ -33,7 +34,7 @@ app.use((req, res, next) => {
 
 // Home route
 app.get('/api/home', (req, res) => {
-  res.send('JADEE💿💿💿 TOGAMS = The Ogunlesi Group Artist Mgmt System');
+  res.send('JADEEOOOO💿💿💿 TOGAMS = The Ogunlesi Group Artist Mgmt System');
 });
 
 // Define your routes here
