@@ -9,7 +9,6 @@ artifacts:
     paths:
       - 'server/*'
       - 'client/*'
-      - '*.js'
       - '*.json'
       - '*.md'
 
