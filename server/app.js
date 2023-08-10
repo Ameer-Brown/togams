@@ -38,12 +38,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// Placeholder route for /api/home
-app.get('/api/settings', (req, res) => {
-  res.json({ _id: 1, message: 'Personal User Settings' });
-});
+// Placeholder route for /api/
+app.get('/api/', (req, res) => {res.json({ _id: 0, message: 'Root' });});
 
 // Placeholder routes for other endpoints 
+app.get('/api/settings', (req, res) => {res.json({ _id: 1, message: 'Personal User Settings' });});
 app.get('/api/tours', (req, res) => res.json({ _id: 2, message: 'Tour management placeholder' }));
 app.get('/api/inbox', (req, res) => res.json({ _id: 3, message: 'Inbox placeholder' }));
 app.get('/api/users', (req, res) => res.json({ _id: 4, message: 'User management placeholder' }));
