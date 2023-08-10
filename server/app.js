@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 
 // Home route
 app.get('/api/home', (req, res) => {
-  res.send('💿💿💿 TOGAMS = The Ogunlesi Group Artist Mgmt System');
+  res.send('JADEE💿💿💿 TOGAMS = The Ogunlesi Group Artist Mgmt System');
 });
 
 // Define your routes here
