@@ -1,15 +1,21 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Use CORS middleware
+app.use(cors());
 
 // MongoDB connection setup
-const uri = process.env.MONGO_URI || "mongodb+srv://togams:DxuO5iU922S7Z61j@cluster0.pi0qsca.mongodb.net/?retryWrites=true&w=majority"; // Remember to setup MONGO_URI in your environment variables
+const uri = process.env.MONGO_URI;
 
 const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
@@ -26,36 +32,35 @@ client.connect()
     process.exit(1);
   });
 
-// First middleware: logging
+// Logging middleware
 app.use((req, res, next) => {
   console.log(`${req.method} request for ${req.url}`);
   next();
 });
 
-// Home route
-app.get('/api/home', (req, res) => {
-  res.send('JADEEOOOO💿💿💿 TOGAMS = The Ogunlesi Group Artist Mgmt System');
+// Placeholder route for /api/home
+app.get('/api/settings', (req, res) => {
+  res.json({ _id: 1, message: 'Personal User Settings' });
 });
 
-// Define your routes here
-app.use('/api/tours', require('./tour-management-suite/routes'));
-app.use('/api/inbox', require('./unified-comm-portal/routes'));
-app.use('/api/user-management', require('./stakeholder-management-system/routes'));
-app.use('/api/music-admin', require('./music-management-system/routes'));
-app.use('/api/calendar', require('./artist-progress-dashboard/routes'));
-app.use('/api/custom-dash', require('./customizable-dashboard/routes'));
+// Placeholder routes for other endpoints 
+app.get('/api/tours', (req, res) => res.json({ _id: 2, message: 'Tour management placeholder' }));
+app.get('/api/inbox', (req, res) => res.json({ _id: 3, message: 'Inbox placeholder' }));
+app.get('/api/users', (req, res) => res.json({ _id: 4, message: 'User management placeholder' }));
+app.get('/api/music-admin', (req, res) => res.json({ _id: 5, message: 'Music management placeholder' }));
+app.get('/api/calendar', (req, res) => res.json({ _id: 6, message: 'Artist progress dashboard placeholder' }));
+app.get('/api/home', (req, res) => res.json({ _id: 7, message: 'Customizable HQ dashboard placeholder' }));
 
 // Serve React frontend in production or staging
-if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+if (['production', 'staging'].includes(process.env.NODE_ENV)) {
     app.use(express.static(path.join(__dirname, '../client/build')));
-
     app.get('*', (req, res) => {
       res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
     });
 }
 
 // 404 handler
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).send('404: File Not Found');
 });
 
