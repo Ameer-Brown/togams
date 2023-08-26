@@ -40,7 +40,8 @@ exports.loginUser = (req, res) => {
 };
 
 // Logout user and end the session
-exports.logoutUser = (req, res) => {
+exports.logout = (req, res) => {
+    console.log("Is authenticated before logout:", req.isAuthenticated());
     req.logout(); // This will clear the login session
     res.json({ message: 'Logout successful' });
 };

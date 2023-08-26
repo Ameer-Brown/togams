@@ -17,7 +17,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use CORS middleware
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:5173',  // replace with your application's origin
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,  // allow session cookies to be sent with requests
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 
 // MongoDB connection setup using Mongoose
 const uri = process.env.MONGO_URI;
@@ -44,40 +51,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// // Configure Passport to use LocalStrategy
-// passport.use(new LocalStrategy(
-//     { usernameField: 'email' },
-//     async (email, password, done) => {
-//         try {
-//             const user = await User.findOne({ email: email });
-//             if (!user) {
-//                 return done(null, false, { message: 'Incorrect email.' });
-//             }
-//             if (!await bcrypt.compare(password, user.password)) {
-//                 return done(null, false, { message: 'Incorrect password.' });
-//             }
-//             return done(null, user);
-//         } catch (err) {
-//             return done(err);
-//         }
-//     }
-// ));
-
-// // Serialize user instance to the session
-// passport.serializeUser((user, done) => {
-//     done(null, user.id);
-// });
-
-// // Deserialize user from the session
-// passport.deserializeUser(async (id, done) => {
-//     try {
-//         const user = await User.findById(id);
-//         done(null, user);
-//     } catch (err) {
-//         done(err, null);
-//     }
-// });
-
 app.use((req, res, next) => {
   console.log(`${req.method} request for ${req.url}`);
   next();
@@ -85,6 +58,7 @@ app.use((req, res, next) => {
 
 // Placeholder routes for other endpoints 
 app.get('/api/', (req, res) => { res.json({ _id: 0, message: 'Root' }); });
+console.log("About to hit User API in routes");
 app.use('/api/users', userRoutes);
 app.get('/api/settings', (req, res) => { res.json({ _id: 1, message: 'Personal User Settings' }); });
 app.get('/api/tours', (req, res) => res.json({ _id: 2, message: 'Tour management placeholder' }));

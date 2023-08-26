@@ -5,58 +5,63 @@ const router = express.Router();
 
 // Middleware to ensure the user is authenticated
 function ensureAuthenticated(req, res, next) {
+    console.log("Checking authentication...");
     if (req.isAuthenticated()) {
+        console.log("User is authenticated.");
         return next();
     } else {
-        res.status(401).send({ message: 'Unauthorized' });
+        console.log("User is not authenticated.");
+        res.status(401).send({ message: 'Fucking Unauthorized' });
     }
 }
 
-// Create a new user (Sign-up)
-router.post('/signup', userController.createUser);
 
-// Authenticate user and generate session (Login)
+// Public Routes
+
+// Sign-up
+router.post('/signup', userController.createUser);
+console.log("iGot here from API");
+
+// Login
 router.post('/login', (req, res, next) => {
+    console.log('Attempting to authenticate');
+    console.log('req.body:', req.body);
+    console.log('req.body:', req.session);
     passport.authenticate('local', (err, user, info) => {
+        console.log('Inside passport.authenticate() callback');
+        console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`);
+        console.log(`req.user: ${JSON.stringify(req.user)}`);
         if (err) {
+            console.log('Error:', err);
             return next(err);
         }
         if (!user) {
+            console.log("FAILLLL");
             return res.status(401).json({ message: 'Login failed. Incorrect email or password.' });
         }
         req.logIn(user, (err) => {
             if (err) {
+                console.log('Error while logging in:', err);
                 return next(err);
             }
+            console.log('Login successful');
             return res.json({ message: 'Login successful', user: req.user });
         });
     })(req, res, next);
 });
 
-router.get('/check-auth', (req, res) => {
-  if (req.isAuthenticated()) {
-    // User is authenticated
-    res.json({ authenticated: true, user: req.user });
-  } else {
-    // User is not authenticated
-    res.json({ authenticated: false });
-    console.log("NOPE");
-  }
-});
+// Logout
+router.post('/logout', userController.logout);
+console.log("Logout route defined");
 
-// Define routes with authentication middleware
-router.use(ensureAuthenticated); // Apply authentication middleware to all subsequent routes
-
-// Logout user and end the session
-router.post('/logout', (req, res) => {
-    req.logout(); // This will clear the login session
-    res.json({ message: 'Logout successful' });
-});
+// Protected Routes (require authentication)
+// router.use(ensureAuthenticated);
 
 router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUserById);
-router.put('/:id', userController.updateUserById); // Route for updating user
+router.put('/:id', userController.updateUserById);
 router.delete('/:id', userController.deleteUserById);
 
-
 module.exports = router;
+
+
